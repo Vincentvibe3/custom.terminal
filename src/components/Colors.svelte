@@ -14,9 +14,7 @@
         }
     }
     export let activeButton:ColorButton;
-    //one half theme
-    export let defaultColors = ["#383a42", "#e45649", "#50a14f", "#c18401", "#0184bc", "#a626a4", "#0997b3", "#fafafa", "#383a42", "#fafafa",
-                        "#282c34", "#e06c75", "#98c379", "#e5c07b", "#61afef", "#c678dd", "#56b6c2", "#dcdfe4", "#dcdfe4", "#282c34"]
+    
 </script>
 
 <script lang="ts">
@@ -26,6 +24,10 @@
     let buttonCount = 20
 
     export let buttons = [];
+
+    //one half theme
+    let defaultColors = ["#383a42", "#e45649", "#50a14f", "#c18401", "#0184bc", "#a626a4", "#0997b3", "#fafafa", "#383a42", "#fafafa",
+                        "#282c34", "#e06c75", "#98c379", "#e5c07b", "#61afef", "#c678dd", "#56b6c2", "#dcdfe4", "#dcdfe4", "#282c34"]
 
     for (let i=0; i<buttonCount; i++){
         buttons[i] = new ColorButton(i)

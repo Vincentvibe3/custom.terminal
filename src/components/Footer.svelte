@@ -9,8 +9,6 @@
 
 <style lang="scss">
 
-    
-
     footer {
         width: 100%;
         height: 100%;

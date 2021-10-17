@@ -27,31 +27,19 @@
 		width: calc(100% - 3rem);
 		height: calc(100% - 3rem);
 		gap: 2rem 2rem;
-	}
 
-	.clrPicker {
-		grid-area: tools;
-	}
+		.clrPicker {
+				grid-area: tools;
+		}
 
-	.preview {
-		grid-area: viewer;
-	}
+		.preview {
+			grid-area: viewer;
+		}
 
-	.colors{
-		grid-area: colors;
-	}
+		.colors{
+			grid-area: colors;
+		}
 
-	h1 {
-		position: relative;
-		justify-self: left;
-		align-self: center;
-		left: 1rem;
-		margin: 0px;
-		grid-area: header;
-		color: $color;
-		text-transform: uppercase;
-		font-size: 1rem;
-		font-weight: 300;
 	}
 
 	@media (min-width: 640px) {
