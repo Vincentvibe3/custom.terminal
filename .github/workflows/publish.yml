@@ -22,8 +22,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         
-    - name: Install surge
-      run: npm install -g surge
+    - name: Setup Env
+      run: |
+        npm install sass
+        npm install typescript --global
 
     - name: Build
       run: |
@@ -31,4 +33,6 @@ jobs:
         npm run build
         
     - name: Publish
-      run: surge --project ./public ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+      run: |
+        npm install -g surge
+        surge --project ./public ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
