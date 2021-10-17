@@ -1,7 +1,7 @@
 <script lang="ts">
     import ColorPicker from './components/ColorPicker.svelte';
 	import Colors from './components/Colors.svelte';
-	import Footer from './components/footer.svelte';
+	import Footer from './components/Footer.svelte';
 	import Preview from './components/Preview.svelte';
 
 </script>
