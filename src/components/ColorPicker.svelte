@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import ControlThumb from './controlThumb.svelte';
-	import type { Thumb } from './controlThumb.svelte'
+	import ControlThumb from './ControlThumb.svelte';
+	import type { Thumb } from './ControlThumb.svelte'
 	import { activeButton, ColorButton } from './Colors.svelte'
 	import { RGB2HSV, RGBColor } from '../scripts/colorConversion';
 	import { HSV2RGB } from '../scripts/colorConversion';
