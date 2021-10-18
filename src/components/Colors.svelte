@@ -1,29 +1,54 @@
 <script context="module" lang="ts">
-    import type { RGBColor } from "../scripts/colorConversion";
+    import { RGB2HSV, RGBColor } from "../scripts/colorUtils"
+
     export class ColorButton{
         element:HTMLElement
         color:RGBColor
         id:string
 
         constructor(index:number){
-            this.id = `color${index}`
+            if (index==9){
+                this.id = "Fg"
+            } else if (index == 19){
+                this.id = "Bg"
+            } else {
+                this.id = `Color ${index+1}`
+            }
+            
+        }
+
+        setElementLabel(){
+            this.element.innerHTML = this.id
+            this.setLabelColor()
+        }
+
+        setLabelColor(){
+            let hsvColor = RGB2HSV(this.color)
+            let labelColor:string;
+            if (hsvColor.v>0.5){
+                labelColor = "#161616"
+            } else {
+                labelColor = "#ffffff"
+            }
+            this.element.style.color = labelColor
         }
 
         setElementColor(){
             this.element.style.backgroundColor = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`
         }
     }
+
     export let activeButton:ColorButton;
+    export let buttons:ColorButton[] = [];
     
 </script>
 
 <script lang="ts">
     import { onMount } from "svelte";
-    import { HEX2RGB } from "../scripts/colorConversion"
+    import { HEX2RGB } from "../scripts/colorUtils";
+    import { renderBorders } from "../scripts/rendering";
 
     let buttonCount = 20
-
-    export let buttons = [];
 
     //one half theme
     let defaultColors = ["#383a42", "#e45649", "#50a14f", "#c18401", "#0184bc", "#a626a4", "#0997b3", "#fafafa", "#383a42", "#fafafa",
@@ -39,6 +64,7 @@
     onMount(()=> {
         buttons.forEach(function(value){
             value.setElementColor()
+            value.setElementLabel()
         })
         select(0)
     })
@@ -46,25 +72,28 @@
 
     function select(id:number){
         activeButton = buttons[id]
-        let activeStyle = "white 0.2rem solid"
-        let inactiveStyle = "none"
         buttons.forEach(function(value:ColorButton, key){
             if (key === id){
-                activeButton.element.style.border = activeStyle
+                renderBorders(value.element, RGB2HSV(value.color), "0.2rem")
             } else {
-                value.element.style.border = inactiveStyle
+                renderBorders(value.element, RGB2HSV(value.color), "0.1rem")
             }
         })
 
     }
 
     function hover(id:number, entry:boolean){
-        let button = buttons[id].element
-        console.log(button)
+        let button = buttons[id]
+        let element = buttons[id].element
+        let val = RGB2HSV(button.color).v
         if (entry){
-            button.style.filter = "brightness(50%)"
+            if (val>0.5){
+                element.style.filter = "brightness(80%)"
+            } else {
+                element.style.filter = "brightness(120%)"
+            }
         } else {
-            button.style.filter = "brightness(100%)"
+            element.style.filter = "brightness(100%)"
         }
         
     }
@@ -83,11 +112,15 @@
         padding: 1rem;
         grid-template-columns: repeat(10, 1fr);
         grid-template-rows: 1fr 1fr;
+        gap: 0.5rem 0.5rem;
 
         .clrButton{
+            margin: 0px;
             background-color: #fafafa;
             border: none;
             border-radius: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 500;
         }
 
     }

@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte'
 	import ControlThumb from './ControlThumb.svelte';
 	import type { Thumb } from './ControlThumb.svelte'
-	import { activeButton, ColorButton } from './Colors.svelte'
-	import { RGB2HSV, RGBColor } from '../scripts/colorConversion';
-	import { HSV2RGB } from '../scripts/colorConversion';
+	import { activeButton, buttons, ColorButton } from './Colors.svelte'
+	import { RGB2HEX, RGB2HSV, HSV2RGB } from '../scripts/colorUtils';
+	import { renderBorders } from '../scripts/rendering';
 
 	let canvas:HTMLCanvasElement;
 	let slider:HTMLInputElement;
@@ -19,9 +19,14 @@
 	let isDrawingSlider = false;
 	let isDrawing = false;
 
+	let containers = document.getElementsByClassName("container") as HTMLCollectionOf<HTMLElement>
+
 	export let currentColor = {
 		h:0, s:1, v:1
 	}
+
+	let currentColorRGB = HSV2RGB(currentColor);
+	let currentColorHEX = RGB2HEX(currentColorRGB);
 
 	interface Coords {
 		x:number,
@@ -38,25 +43,34 @@
 		drawColorPicker(canvas, currentColor.h)
 		updateCanvasThumb()
 		updateSliderThumb()
-		displayValues(HSV2RGB(currentColor))
+		displayValues()
+		let tempColor = currentColor
+		currentColor = RGB2HSV(buttons[buttons.length-1].color)
+		currentColorRGB = HSV2RGB(currentColor)
+		currentColorHEX = RGB2HEX(currentColorRGB)
+		updateContainers()
+		currentColor = tempColor
 	})
 
-	function setZeros(text:string):string{
-		let length = text.length
-		let zeros = ""
-		for (let amount = 2-length; amount>0; amount--){
-			zeros+="0"
+	function displayValues(){
+		currentColorRGB = HSV2RGB(currentColor)
+		currentColorHEX = RGB2HEX(currentColorRGB)
+		valueDisplay.textContent = currentColorHEX
+		currentColorDisplay.style.backgroundColor = currentColorHEX
+		activeButton.element.style.backgroundColor = currentColorHEX
+		activeButton.color = currentColorRGB
+		if (activeButton.id==="Bg"){
+			renderBorders(activeButton.element, currentColor, "0.2rem")
+			updateContainers()
 		}
-		return zeros+text
 	}
 
-	function displayValues(color:RGBColor){
-		let r = setZeros(Math.round(color.r).toString(16))
-		let g = setZeros(Math.round(color.g).toString(16))
-		let b = setZeros(Math.round(color.b).toString(16))
-		valueDisplay.textContent = `#${r}${g}${b}`
-		currentColorDisplay.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`
-		activeButton.element.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`
+	function updateContainers(){
+		for (let i=0; i<containers.length; i++){
+			let element = containers[i]
+			element.style.backgroundColor = currentColorHEX
+			renderBorders(element, currentColor, "0.1rem")
+		}
 	}
 
 	function updateCurrentColor(coords:Coords){
@@ -105,7 +119,7 @@
 			drawColorPicker(canvas, currentColor.h)
 			updateCanvasThumb()
 			updateSliderThumb()
-			displayValues(HSV2RGB(currentColor))
+			displayValues()
 			previousActive = activeButton
 		}
 		if (isDrawing === true) {
@@ -115,9 +129,6 @@
     		currentColor.h = (coords.x)/slider.clientWidth*360
     		slider.value = String(currentColor.h)
 			handleSliderUpdate(e)
-		}
-		if (isDrawing||isDrawingSlider){
-			displayValues(HSV2RGB(currentColor))
 		}
 	});
 
@@ -129,7 +140,6 @@
 			handleSliderUpdate(e)
 			isDrawingSlider = false
 		}
-		displayValues(HSV2RGB(currentColor))
 	});
 
 	function updateSliderThumb(){
@@ -147,6 +157,7 @@
 		let coords = getPosition(event.pageX, event.pageY, canvas)
 		updateCurrentColor(coords)
 		updateCanvasThumb()
+		displayValues()
 		isDrawing = true
 	}
 
@@ -154,7 +165,10 @@
 		drawColorPicker(canvas, currentColor.h)
 		updateCanvasThumb()
 		updateSliderThumb()
-		isDrawingSlider= true
+		displayValues()
+		if (event.type == "mousedown"){
+			isDrawingSlider= true
+		}
 	}
 
 </script>

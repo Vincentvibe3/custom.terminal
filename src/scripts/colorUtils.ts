@@ -18,6 +18,22 @@ export function HEX2RGB(hex:string):RGBColor{
   return {r:parseInt(hexR, 16), g:parseInt(hexG, 16), b:parseInt(hexB, 16)}
 }
 
+function setZeros(text:string):string{
+  let length = text.length
+  let zeros = ""
+  for (let amount = 2-length; amount>0; amount--){
+    zeros+="0"
+  }
+  return zeros+text
+}
+
+export function RGB2HEX(color:RGBColor){
+  let r = setZeros(Math.round(color.r).toString(16))
+		let g = setZeros(Math.round(color.g).toString(16))
+		let b = setZeros(Math.round(color.b).toString(16))
+		return `#${r}${g}${b}`
+}
+
 export function RGB2HSV(color:RGBColor){
   let r = color.r/255
   let g = color.g/255

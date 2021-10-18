@@ -1,7 +1,6 @@
 <script context='module' lang="ts">
 
-    import {HSVColor, HSV2RGB} from '../scripts/colorConversion'
-    import { createEventDispatcher, onMount } from 'svelte';
+    import {HSVColor, HSV2RGB} from "../scripts/colorUtils"
 
     export class Thumb {
 
