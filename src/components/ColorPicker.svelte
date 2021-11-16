@@ -40,6 +40,7 @@
 		canvas.height = canvas.clientHeight
 		canvas.width = canvas.clientWidth
 		currentColor = RGB2HSV(activeButton.color)
+		console.log(activeButton)
 		drawColorPicker(canvas, currentColor.h)
 		updateCanvasThumb()
 		updateSliderThumb()
@@ -74,7 +75,7 @@
 			renderBorders(element, currentColor, "0.1rem")
 		}
 		document.body.style.backgroundColor = currentColorHEX
-		renderBorders(document.getElementsByTagName("footer")[0], currentColor, "0.1rem")
+		renderBorders(document.getElementsByTagName("header")[0], currentColor, "0.1rem")
 		renderBorders(canvas, currentColor, "0.1rem")
 		renderBorders(slider, currentColor, "0.1rem")
 	}
@@ -161,7 +162,7 @@
 	}
 
 	function handleCanvasUpdate(event:any){
-		let coords = getPosition(event.pageX, event.pageY, canvas)
+		let coords = getPosition(event.pageX, event.pageY-window.scrollY, canvas)
 		updateCurrentColor(coords)
 		updateCanvasThumb()
 		displayValues()

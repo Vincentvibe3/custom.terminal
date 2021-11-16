@@ -24,6 +24,7 @@
 
         setElementLabel(){
             this.element.innerHTML = this.id
+            console.log("setting label")
             this.setLabelColor()
         }
 
@@ -40,6 +41,7 @@
 
         setElementColor(){
             this.element.style.backgroundColor = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`
+            console.log(`rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`)
         }
     }
 
@@ -67,6 +69,7 @@
     activeButton = buttons[0]
 
     onMount(()=> {
+        console.log("mounted")
         buttons.forEach(function(value){
             value.setElementColor()
             value.setElementLabel()
