@@ -1,4 +1,4 @@
-import { HSV2RGB, HSVColor, RGB2HEX } from "./colorUtils";
+import { HSVColor, HSV2HEX } from "./colorUtils";
 
 export function renderBorders(element:HTMLElement, color:HSVColor, weight:string){
     let borderColor = {h:color.h, s:color.s, v:color.v}
@@ -6,9 +6,14 @@ export function renderBorders(element:HTMLElement, color:HSVColor, weight:string
         borderColor.s = 0
     }
     if (color.v > 0.5){
-        borderColor.v = borderColor.v-0.1
+        borderColor.v = borderColor.v-0.2
     } else {
-        borderColor.v = borderColor.v+0.1
+        borderColor.v = borderColor.v+0.2
     }
-    element.style.outline = `${RGB2HEX(HSV2RGB(borderColor))} ${weight} solid`
+
+    if (element.tagName === "INPUT" && (element as HTMLInputElement).type === "range"){
+        element.style.border = `${HSV2HEX(borderColor)} ${weight} solid`
+    } else {
+        element.style.outline = `${HSV2HEX(borderColor)} ${weight} solid`
+    }
 }

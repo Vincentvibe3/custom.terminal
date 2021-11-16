@@ -17,6 +17,11 @@
             
         }
 
+        setColor(color:RGBColor){
+            this.color = color
+            this.setLabelColor()
+        }
+
         setElementLabel(){
             this.element.innerHTML = this.id
             this.setLabelColor()

@@ -57,12 +57,14 @@
 		currentColorHEX = RGB2HEX(currentColorRGB)
 		valueDisplay.textContent = currentColorHEX
 		currentColorDisplay.style.backgroundColor = currentColorHEX
+		renderBorders(currentColorDisplay, currentColor, "0.1rem")
 		activeButton.element.style.backgroundColor = currentColorHEX
-		activeButton.color = currentColorRGB
+		activeButton.setColor(currentColorRGB)
 		if (activeButton.id==="Bg"){
-			renderBorders(activeButton.element, currentColor, "0.2rem")
 			updateContainers()
 		}
+		renderBorders(activeButton.element, currentColor, "0.2rem")
+		
 	}
 
 	function updateContainers(){
@@ -71,6 +73,10 @@
 			element.style.backgroundColor = currentColorHEX
 			renderBorders(element, currentColor, "0.1rem")
 		}
+		document.body.style.backgroundColor = currentColorHEX
+		renderBorders(document.getElementsByTagName("footer")[0], currentColor, "0.1rem")
+		renderBorders(canvas, currentColor, "0.1rem")
+		renderBorders(slider, currentColor, "0.1rem")
 	}
 
 	function updateCurrentColor(coords:Coords){
@@ -151,6 +157,7 @@
 		canvasThumb.updateThumbColor(currentColor)
 		canvasThumb.moveThumbX(currentColor.s, canvas)
 		canvasThumb.moveThumbY(currentColor.v, canvas)
+		renderBorders(canvasThumb.thumbElement, currentColor, "0.1rem")
 	}
 
 	function handleCanvasUpdate(event:any){
@@ -245,17 +252,18 @@
 
 		.infoDisplay {
 			position: relative;
-			justify-self: left;
+			width: 100%;
 			display:flex;
 			flex-direction: row;
 			align-items: center;
+			justify-content: flex-start;
 			color: white;
 
 			.colorDisplay {
 				width: 2rem;
 				height: 2rem;
 				background-color: white;
-				border: white 0.15rem solid;
+				// border: white 0.15rem solid;
 				border-radius: 0.5rem;
 				box-shadow: 0rem 0rem 2rem #00000050;
 			}

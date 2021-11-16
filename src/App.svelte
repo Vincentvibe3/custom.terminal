@@ -19,7 +19,7 @@
 
 	main {
 		display: grid;
-		grid-template-columns: 1fr minmax(450px, 4fr);
+		grid-template-columns: 0.8fr minmax(450px, 4fr);
 		grid-template-rows: 2fr 1fr 8rem;
 		grid-template-areas: "tools viewer" ". viewer" ". colors";
 		grid-area: main;
@@ -29,7 +29,7 @@
 		gap: 2rem 2rem;
 
 		.clrPicker {
-				grid-area: tools;
+			grid-area: tools;
 		}
 
 		.preview {

@@ -40,7 +40,7 @@
         transform: translateX(-50%);
         width: 0.5rem;
         height: 0.5rem;
-        outline: white 0.2rem solid;
+        border: white 0.2rem solid;
         border-radius: 5rem;
         cursor: pointer;
     }
