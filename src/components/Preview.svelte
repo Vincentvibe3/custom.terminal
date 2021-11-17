@@ -10,8 +10,6 @@
 
 <style lang="scss">
     .preview{
-        width: 100%;
-        height: 100%;
         display: grid;
         grid-template-rows: 2rem 1fr;
         grid-template-areas: "tabs" "text";
