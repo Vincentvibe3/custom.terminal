@@ -14,7 +14,7 @@
             this.thumbElement.style.transform = `translate(${this.xTranslate}px, ${this.yTranslate}px)`
         }
 
-        moveThumbY(val:number, parent:HTMLElement){
+        moveThumbY(val:number, parent:HTMLElement){        
             this.yTranslate = parent.clientHeight-(val*parent.clientHeight)-this.thumbElement.clientHeight/2
             this.thumbElement.style.transform = `translate(${this.xTranslate}px, ${this.yTranslate}px)`
         }

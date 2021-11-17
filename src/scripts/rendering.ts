@@ -11,7 +11,7 @@ export function renderBorders(element:HTMLElement, color:HSVColor, weight:string
         borderColor.v = borderColor.v+0.2
     }
 
-    if (element.tagName === "INPUT" && (element as HTMLInputElement).type === "range"){
+    if (element.tagName === "INPUT"){
         element.style.border = `${HSV2HEX(borderColor)} ${weight} solid`
     } else {
         element.style.outline = `${HSV2HEX(borderColor)} ${weight} solid`
