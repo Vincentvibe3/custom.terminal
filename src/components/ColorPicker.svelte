@@ -61,6 +61,7 @@
 		activeButton.setColor(currentColorRGB)
 		if (activeButton.id==="Bg"){
 			updateContainers()
+			renderColor("bg", currentColor)
 			renderColor("bg_alt", currentColor)
 		}
 		

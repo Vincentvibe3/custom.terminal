@@ -3,7 +3,7 @@
 </script>
 
 <div class="container preview">
-    <div class="container tabs">
+    <div class="tabs bg_alt">
         <Tab name="terminal"></Tab>
         <Tab name="python"></Tab>
     </div>
