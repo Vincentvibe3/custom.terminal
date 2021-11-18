@@ -5,16 +5,17 @@
     }
 </script>
 
-<button class="tab" on:click={clickHandler}>{name}</button>
+<button class="tab bg_alt" on:click={clickHandler}>{name}</button>
 
 <style lang="scss">
     .tab {
         width: 10rem;
         height: 100%;
-        margin-left: 1rem;
-        padding: 0.5rem;
+        padding: 0.2rem;
+        margin-left: 0.2rem;
         background-color: white;
         border: none;
+        border-radius: 0.4rem 0.4rem 0rem 0rem;
     
     }
 </style>

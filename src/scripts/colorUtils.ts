@@ -125,3 +125,24 @@ export function HSV2RGB(color: HSVColor): RGBColor {
     }
 
 }
+
+function getLum(color:RGBColor):number{
+    let sR = getsRGB(color.r)
+    let sG = getsRGB(color.g)
+    let sB = getsRGB(color.b)
+    let R = sR <= 0.03928 ? sR/12.92 : Math.pow((sR+0.055)/1.055, 2.4)
+    let G = sG <= 0.03928 ? sG/12.92 : Math.pow((sG+0.055)/1.055, 2.4)
+    let B = sB <= 0.03928 ? sB/12.92 : Math.pow((sB+0.055)/1.055, 2.4)
+    return 0.2126*R+0.7152*G+0.0722*B
+
+}
+
+function getsRGB(value:number):number{
+    return value/255
+}
+
+export function contrast(color1:RGBColor, color2:RGBColor):number{
+    let lum1 = getLum(color1)
+    let lum2 = getLum(color2)
+    return (Math.max(lum1, lum2)+0.05)/(Math.min(lum1, lum2)+0.05)
+}

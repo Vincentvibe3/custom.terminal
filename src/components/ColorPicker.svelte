@@ -4,7 +4,7 @@
 	import type { Thumb } from './ControlThumb.svelte'
 	import { activeButton, buttons, ColorButton } from './Colors.svelte'
 	import { RGB2HEX, RGB2HSV, HSV2RGB, HEX2HSV } from '../scripts/colorUtils';
-	import { renderBorders } from '../scripts/rendering';
+	import { renderBorders, renderColor } from '../scripts/rendering';
 
 	let canvas:HTMLCanvasElement;
 	let slider:HTMLInputElement;
@@ -61,7 +61,9 @@
 		activeButton.setColor(currentColorRGB)
 		if (activeButton.id==="Bg"){
 			updateContainers()
+			renderColor("bg_alt", currentColor)
 		}
+		
 		renderBorders(activeButton.element, currentColor, "0.2rem")
 		
 	}
