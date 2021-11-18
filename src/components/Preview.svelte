@@ -1,8 +1,10 @@
 <script lang="ts">
-
+    import Tab from './Tab.svelte';
 </script>
 
 <div class="container preview">
+    <Tab name="terminal"></Tab>
+    <Tab name="python"></Tab>
     <div class="previewText">
         <p>This is text</p>
     </div>
