@@ -79,7 +79,9 @@
 	function updateContainers(){
 		for (let i=0; i<containers.length; i++){
 			let element = containers[i]
-			element.style.backgroundColor = currentColorHEX
+			if (!element.classList.contains("Bg")){
+				element.classList.add("Bg")
+			}
 			renderBorders(element, currentColor, "0.1rem")
 		}
 		document.body.style.backgroundColor = currentColorHEX
