@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-    import { RGB2HSV, RGBColor } from "../scripts/colorUtils"
+    import { RGB2HSV, RGBColor, contrast } from "../scripts/colorUtils"
 
     export class ColorButton{
         element:HTMLElement
@@ -28,13 +28,9 @@
         }
 
         setLabelColor(){
-            let hsvColor = RGB2HSV(this.color)
-            let labelColor:string;
-            if (hsvColor.v>0.5){
-                labelColor = "#161616"
-            } else {
-                labelColor = "#ffffff"
-            }
+            let contrastBlack = contrast(this.color, {r:0, g:0, b:0})
+            let contrastWhite = contrast(this.color, {r:255, g:255, b:255})
+            let labelColor = (contrastBlack>contrastWhite) ? "#161616" : "#ffffff"
             this.element.style.color = labelColor
         }
 
@@ -90,13 +86,11 @@
     function hover(id:number, entry:boolean){
         let button = buttons[id]
         let element = buttons[id].element
-        let val = RGB2HSV(button.color).v
         if (entry){
-            if (val>0.5){
-                element.style.filter = "brightness(80%)"
-            } else {
-                element.style.filter = "brightness(120%)"
-            }
+            let contrastBlack = contrast(button.color, {r:0, g:0, b:0})
+            let contrastWhite = contrast(button.color, {r:255, g:255, b:255})
+            let filter = (contrastBlack>contrastWhite) ? "brightness(80%)" : "brightness(120%)"
+            element.style.filter = filter
         } else {
             element.style.filter = "brightness(100%)"
         }

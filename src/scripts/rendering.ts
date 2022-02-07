@@ -33,6 +33,9 @@ export function renderColor(colorName:string, color:HSVColor){
     let contrastBlack = contrast(HSV2RGB(bgColor), {r:0, g:0, b:0})
     let contrastWhite = contrast(HSV2RGB(bgColor), {r:255, g:255, b:255})
     let textColor = (contrastBlack>contrastWhite) ? "black" : "white"
+    if (bgColor.v===0){
+        bgColor.s = 0
+    }
     for (let element of elements){
         (element as HTMLElement).style.color = textColor;
         (element as HTMLElement).style.backgroundColor = HSV2HEX(bgColor)

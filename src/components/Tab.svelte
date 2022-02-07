@@ -1,7 +1,7 @@
 <script lang="ts">
     export let name;
     function clickHandler(){
-        console.log("clicked")
+        console.log("clicked tab")
     }
 </script>
 
@@ -9,13 +9,16 @@
 
 <style lang="scss">
     .tab {
-        width: 10rem;
+        width: fit-content;
         height: 100%;
-        padding: 0.2rem;
-        margin-left: 0.2rem;
+        padding-right: 2rem;
+        margin-left: 0rem;
         background-color: white;
         border: none;
         border-radius: 0.4rem 0.4rem 0rem 0rem;
+        text-align: left;
+        text-indent: 1rem;
+        font-size: 0.8rem;
     
     }
 </style>

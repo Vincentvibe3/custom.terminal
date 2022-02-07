@@ -1,5 +1,9 @@
 <script lang="ts">
     import Tab from './Tab.svelte';
+
+    function focusEditor(e:Event){
+        (e.target as HTMLElement).focus()
+    }
 </script>
 
 <div class="container preview">
@@ -8,8 +12,8 @@
         <Tab name="python"></Tab>
     </div>
     
-    <div class="previewText">
-        <p>This is text</p>
+    <div class="previewTextContainer" >
+        <p class="previewText" on:click={focusEditor} contenteditable>This is text</p>
     </div>
 </div>
 
@@ -19,20 +23,37 @@
         display: flex;
         flex-direction: row;
         padding-left: 1rem;
+        border-radius: inherit;
         border-bottom-left-radius: 0rem;
         border-bottom-right-radius: 0rem;
     }
 
     .preview{
+        min-width: 0;
+        min-height: 0;
+        box-sizing: border-box;
         display: grid;
         grid-template-rows: 2.4rem 1fr;
         grid-template-areas: "tabs" "text";
 
-        .previewText {
-            padding: 1rem;
+        .previewTextContainer {
+            padding: 2rem;
             grid-area: text;
             color: white;
+            overflow: auto;
+
+            .previewText {
+                box-sizing: content-box;
+                margin: 0rem;
+                height: 100%;
+                overflow: auto;
+                overflow-wrap: normal;
+            }
         }
 
+    }
+
+    [contenteditable] {
+        outline: 0px solid transparent;
     }
 </style>

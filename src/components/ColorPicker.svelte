@@ -48,6 +48,8 @@
 		currentColorRGB = HSV2RGB(currentColor)
 		currentColorHEX = RGB2HEX(currentColorRGB)
 		updateContainers()
+		renderColor("bg", currentColor)
+		renderColor("bg_alt", currentColor)
 		currentColor = tempColor
 	})
 
