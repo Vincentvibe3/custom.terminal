@@ -5,14 +5,16 @@
         element:HTMLElement
         color:RGBColor
         id:string
+        index:number
 
         constructor(index:number){
+            this.index = index
             if (index==9){
                 this.id = "Fg"
             } else if (index == 19){
                 this.id = "Bg"
             } else {
-                this.id = `Color ${index+1}`
+                this.id = `Color_${index+1}`
             }
             
         }
@@ -41,14 +43,6 @@
 
     export let activeButton:ColorButton;
     export let buttons:ColorButton[] = [];
-    
-</script>
-
-<script lang="ts">
-    import { onMount } from "svelte";
-    import { HEX2RGB } from "../scripts/colorUtils";
-    import { renderBorders } from "../scripts/rendering";
-
     let buttonCount = 20
 
     //one half theme
@@ -59,6 +53,13 @@
         buttons[i] = new ColorButton(i)
         buttons[i].color = HEX2RGB(defaultColors[i])
     }
+    
+</script>
+
+<script lang="ts">
+    import { onMount } from "svelte";
+    import { HEX2RGB } from "../scripts/colorUtils";
+    import { renderBorders } from "../scripts/rendering";
 
     activeButton = buttons[0]
 

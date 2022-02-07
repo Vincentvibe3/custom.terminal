@@ -5,7 +5,7 @@
     }
 </script>
 
-<button class="tab bg" on:click={clickHandler}>{name}</button>
+<button class="tab Bg" on:click={clickHandler}>{name}</button>
 
 <style lang="scss">
     .tab {

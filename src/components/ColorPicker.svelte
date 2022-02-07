@@ -63,8 +63,10 @@
 		activeButton.setColor(currentColorRGB)
 		if (activeButton.id==="Bg"){
 			updateContainers()
-			renderColor("bg", currentColor)
-			renderColor("bg_alt", currentColor)
+			renderColor("Bg", currentColor)
+			renderColor("Bg_alt", currentColor)
+		} else {
+			renderColor(activeButton.id, currentColor)
 		}
 		
 		renderBorders(activeButton.element, currentColor, "0.2rem")

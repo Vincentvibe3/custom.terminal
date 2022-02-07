@@ -20,7 +20,6 @@ export function renderBorders(element:HTMLElement, color:HSVColor, weight:string
 
 export function renderColor(colorName:string, color:HSVColor){
     let elements:HTMLCollection = document.getElementsByClassName(colorName)
-    
     let bgColor = color
     if (colorName.endsWith("_alt")){
         let colorDark = {h:color.h, s:color.s, v:color.v-0.2}
@@ -37,7 +36,11 @@ export function renderColor(colorName:string, color:HSVColor){
         bgColor.s = 0
     }
     for (let element of elements){
-        (element as HTMLElement).style.color = textColor;
-        (element as HTMLElement).style.backgroundColor = HSV2HEX(bgColor)
+        if (element.tagName == "P"){
+            (element as HTMLElement).style.color = HSV2HEX(bgColor)
+        } else {
+            (element as HTMLElement).style.color = textColor;
+            (element as HTMLElement).style.backgroundColor = HSV2HEX(bgColor)
+        }
     }
 }
