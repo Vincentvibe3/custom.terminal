@@ -49,9 +49,14 @@
     let defaultColors = ["#383a42", "#e45649", "#50a14f", "#c18401", "#0184bc", "#a626a4", "#0997b3", "#fafafa", "#383a42", "#fafafa",
                         "#282c34", "#e06c75", "#98c379", "#e5c07b", "#61afef", "#c678dd", "#56b6c2", "#dcdfe4", "#dcdfe4", "#282c34"]
 
+    var searchParams = new URLSearchParams(window.location.search)
     for (let i=0; i<buttonCount; i++){
         buttons[i] = new ColorButton(i)
-        buttons[i].color = HEX2RGB(defaultColors[i])
+        if (searchParams.has(buttons[i].id)){
+            buttons[i].color = HEX2RGB("#"+searchParams.get(buttons[i].id))    
+        } else {
+            buttons[i].color = HEX2RGB(defaultColors[i])
+        }
     }
     
 </script>

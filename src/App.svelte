@@ -3,7 +3,9 @@
     import ColorPicker from './components/ColorPicker.svelte';
 	import Header from './components/Header.svelte';
 	import Preview from './components/Preview.svelte';
-	
+	import { onMount } from 'svelte';
+	import { renderColor } from './scripts/rendering';
+	import { HEX2HSV } from './scripts/colorUtils';
 
 </script>
 

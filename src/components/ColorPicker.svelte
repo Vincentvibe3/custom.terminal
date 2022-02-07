@@ -3,7 +3,7 @@
 	import ControlThumb from './ControlThumb.svelte';
 	import type { Thumb } from './ControlThumb.svelte'
 	import { activeButton, buttons, ColorButton } from './Colors.svelte'
-	import { RGB2HEX, RGB2HSV, HSV2RGB, HEX2HSV } from '../scripts/colorUtils';
+	import { RGB2HEX, RGB2HSV, HSV2RGB, HEX2HSV, HSV2HEX } from '../scripts/colorUtils';
 	import { renderBorders, renderColor } from '../scripts/rendering';
 
 	let canvas:HTMLCanvasElement;
@@ -68,7 +68,10 @@
 		} else {
 			renderColor(activeButton.id, currentColor)
 		}
-		
+		var searchParams = new URLSearchParams(window.location.search)
+		searchParams.set(activeButton.id, HSV2HEX(currentColor).replace("#", ""))
+		let paramsString = searchParams.toString()
+		history.replaceState(null, "", `${window.location.origin}?${paramsString}`)
 		renderBorders(activeButton.element, currentColor, "0.2rem")
 		
 	}

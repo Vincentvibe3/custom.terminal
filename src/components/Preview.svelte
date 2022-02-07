@@ -3,7 +3,9 @@
     import { buttons, ColorButton } from './Colors.svelte'
     import { onMount } from 'svelte';
     import { renderColor } from '../scripts/rendering';
-    import { RGB2HSV } from '../scripts/colorUtils';
+    import { contrast, HEX2RGB, RGB2HSV } from '../scripts/colorUtils';
+
+    let copyButton:HTMLButtonElement
 
     function focusEditor(e:Event){
         (e.target as HTMLElement).focus()
@@ -17,11 +19,29 @@
 		    }
         }
     })
+
+    function hover(entry:boolean){
+        if (entry){
+            let colorString = copyButton.style.backgroundColor.replaceAll("rgb(", "").replaceAll(")", "").split(",")
+            let contrastBlack = contrast({r:parseInt(colorString[0]), g:parseInt(colorString[1]), b:parseInt(colorString[2])}, {r:0, g:0, b:0})
+            let contrastWhite = contrast({r:parseInt(colorString[0]), g:parseInt(colorString[1]), b:parseInt(colorString[2])}, {r:255, g:255, b:255})
+            let filter = (contrastBlack>contrastWhite) ? "brightness(70%)" : "brightness(120%)"
+            copyButton.style.filter = filter
+        } else {
+            copyButton.style.filter = "brightness(100%)"
+        }
+        
+    }
+
+    function copy2Clipboard(){
+        navigator.clipboard.writeText(window.location.href);
+    }
 </script>
 
 <div class="container preview">
     <div class="tabs Bg_alt">
         <Tab name="Terminal"></Tab>
+        <button class="copy Bg" bind:this={copyButton} on:click={copy2Clipboard} on:mouseleave={() => {hover(false)}} on:mouseenter={() => {hover(true)}}>Copy Link</button>
         <!-- <Tab name="python"></Tab> -->
     </div>
     <div class="ansiColorPreview">
@@ -50,6 +70,16 @@
         border-radius: inherit;
         border-bottom-left-radius: 0rem;
         border-bottom-right-radius: 0rem;
+
+        .copy {
+            align-self: center;
+            margin-right: 1rem;
+            margin-left: auto;
+            font-size: 0.6rem;
+            padding: 00.3rem;
+            border-radius: 00.5rem;
+            border-color: #00000000;
+        }
     }
 
     .preview{
@@ -73,6 +103,7 @@
                 width: 10%;
                 margin: 1rem;
                 padding: 0.5rem;
+                border-radius: 0.2rem;
 
                 p {
                     margin:0px;
