@@ -71,7 +71,7 @@
 		var searchParams = new URLSearchParams(window.location.search)
 		searchParams.set(activeButton.id, HSV2HEX(currentColor).replace("#", ""))
 		let paramsString = searchParams.toString()
-		history.replaceState(null, "", `${window.location.origin}?${paramsString}`)
+		history.replaceState({}, "", `${window.location.origin}?${paramsString}`)
 		renderBorders(activeButton.element, currentColor, "0.2rem")
 		
 	}
