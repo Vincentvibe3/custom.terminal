@@ -1,6 +1,7 @@
 <script context='module' lang="ts">
 
-    import {HSVColor, HSV2RGB} from "../scripts/colorUtils"
+    import {HSV2RGB} from "../scripts/colorUtils"
+    import type { HSVColor } from "../scripts/colorUtils";
 
     export class Thumb {
 

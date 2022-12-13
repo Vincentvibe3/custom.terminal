@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
-    import { RGB2HSV, RGBColor, contrast } from "../scripts/colorUtils"
+    import { RGB2HSV, contrast } from "../scripts/colorUtils"
+    import type { RGBColor } from "../scripts/colorUtils"
 
     export class ColorButton{
         element:HTMLElement
